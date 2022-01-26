@@ -8,6 +8,7 @@ function Nav({onSearch}) {
     <div className='navbar'>
 
     <img src={Logo} alt='img not found'/>
+    <h1>My First Weather App</h1>
 
     <SearchBar onSearch={onSearch}  type="search" placeholder="Search" aria-label="Search"/>
 

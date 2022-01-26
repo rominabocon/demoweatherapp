@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Nav from './Components/Nav';
 import Cards from './Components/Cards'
-import Footer from './Components/Footer';
+// import Footer from './Components/Footer';
 
 export default function App() {
   const [cities, setCities] = useState([])
@@ -10,12 +10,16 @@ export default function App() {
   function onClose(id) {
     setCities(oldCities => oldCities.filter(c => c.id !== id));
   }
-
+  
   function onSearch(ciudad) {
+  
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=b6d6db085a98a24be8b5150ad2f22090&units=metric`)
       .then(r => r.json())
       .then((recurso) => {
-        if(recurso.main !== undefined){
+        if (cities[0].hasOwnProperty('id')) {
+          alert("Already in the list") 
+          } else if(recurso.main !== undefined){
+        
           const ciudad = {
             min: Math.round(recurso.main.temp_min),
             max: Math.round(recurso.main.temp_max),
@@ -27,11 +31,12 @@ export default function App() {
             weather: recurso.weather[0].main,
             clouds: recurso.clouds.all,
             latitud: recurso.coord.lat,
-            longitud: recurso.coord.lon
+            longitud: recurso.coord.lon,
           };
           setCities(oldCities => [...oldCities, ciudad]);
-        } else {
-          alert("Ciudad no encontrada");
+        }
+        else {
+          alert("City not found");
         }
       });
 
@@ -48,7 +53,7 @@ export default function App() {
       <div>
         <Cards cities={cities} onClose={onClose}/>
       </div>
-      <div><Footer/></div>
+      {/* <div><Footer/></div> */}
     </div>
   );
 }

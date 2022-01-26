@@ -1,25 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 .App {
   width: 100%;
+  min-height: fit-content;
 }
 /* NavBar */
 .navbar {
   height: 4rem;
-  background-color:grey;
+  border-bottom: solid black 2px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  font-style: italic;
 }
 .navbar img {
   width: 5%;
   height: 80%;
+  margin-left: 3px;
 }
 .searchBar {
   margin-right: 1rem;
+}
+
+.insideButton {
+  margin-left: -1rem;
 }
 /* Cards */
 .cards{
@@ -34,7 +44,7 @@
   border: solid black 1px;
   text-align: center;
   margin: 10px;
-  border-radius: 10px;
+  font-size: larger;
 }
 #closeIcon {
   display: flex;
@@ -42,8 +52,23 @@
   margin-right: 8px;
   margin-top: 8px;
 }
+#closeIcon .btn{
+  background-color: red;
+  font-weight: 400;
+  font-size: larger;
+  border-radius: 5rem;
+}
 .info {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
+}
+/* Footer */
+.footer {
+  width: 100%;
+  text-align: center;
+  position: fixed ;
+  bottom: 0;
+  height: 2rem;
+  border-top: solid black 1px;
 }

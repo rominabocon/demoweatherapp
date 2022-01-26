@@ -15,10 +15,10 @@ export default function SearchBar({onSearch}) {
     }}>
       <input onChange={(e) =>handleChange(e)}
         type="text"
-        placeholder="👀Ciudad..."
+        placeholder="☀ Weather in your city"
         value={city}
       />
-      <input type="submit" value="Agregar" />
+      <input className='insideButton' type="submit" value="🔍" />
     </form>
   );
 }
