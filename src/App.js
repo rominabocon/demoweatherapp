@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Nav from './Components/Nav';
+import Cards from './Components/Cards'
+import Footer from './Components/Footer';
 
-function App() {
+export default function App() {
+  const [cities, setCities] = useState([])
+
+  function onClose(id) {
+    setCities(oldCities => oldCities.filter(c => c.id !== id));
+  }
+
+  function onSearch(ciudad) {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=b6d6db085a98a24be8b5150ad2f22090&units=metric`)
+      .then(r => r.json())
+      .then((recurso) => {
+        if(recurso.main !== undefined){
+          const ciudad = {
+            min: Math.round(recurso.main.temp_min),
+            max: Math.round(recurso.main.temp_max),
+            img: recurso.weather[0].icon,
+            id: recurso.id,
+            wind: recurso.wind.speed,
+            temp: recurso.main.temp,
+            name: recurso.name,
+            weather: recurso.weather[0].main,
+            clouds: recurso.clouds.all,
+            latitud: recurso.coord.lat,
+            longitud: recurso.coord.lon
+          };
+          setCities(oldCities => [...oldCities, ciudad]);
+        } else {
+          alert("Ciudad no encontrada");
+        }
+      });
+
+    }
+
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { /* Tu código acá: */ }
+      <div>
+        <Nav onSearch={onSearch}/>
+      </div>
+      <div>
+        <Cards cities={cities} onClose={onClose}/>
+      </div>
+      <div><Footer/></div>
     </div>
   );
 }
-
-export default App;
